@@ -1,6 +1,6 @@
 # NutritionAppBackend
 
-An api for giving nutrients of any food with 29 properties.
+An api that gives nutrients of any food with 29 properties.
 
 29 properties are categorized into 3 types.
 
@@ -60,7 +60,7 @@ An api for giving nutrients of any food with 29 properties.
     8. Carotene alpha
     9. Carotene beta
 
-> ### **_Note: Nutritions are shown as a 100g unit of each fruit/food/vegetables_**
+> ### **_Note: Nutritions are shown as 100g unit of each fruit/food/vegetables_**
 
 ## HOSTING API
 
