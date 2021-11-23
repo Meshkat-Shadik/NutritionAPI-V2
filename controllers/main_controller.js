@@ -140,6 +140,7 @@ const requestAPI = (req, res) => {
                     }
                 }
                 res.status(200).json({
+                    status: "Success",
                     data: {
                         name: ins,
                         count: {
@@ -155,13 +156,15 @@ const requestAPI = (req, res) => {
                 });
             } else {
                 res.status(404).json({
-                    data: "Data Not Found!, Check the name is correct or not!!",
+                    status: "Error",
+                    data: {},
                 });
             }
         })
         .catch((ex) =>
             res.status(500).json({
-                data: `${ex} : Internal Server Error`,
+                status: `Internal Server Error`,
+                data: {},
             })
         );
 };
