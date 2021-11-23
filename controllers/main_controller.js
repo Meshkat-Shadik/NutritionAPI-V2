@@ -25,7 +25,7 @@ const requestAPI = (req, res) => {
             data = response.data;
             // console.log(Object.keys(data.foods[0]).length);
             let x = data.foods[0];
-            console.log(data.foods);
+            //  console.log(data.foods);
             let generalItems = [];
             let mineralItems = [];
             let vitaminItems = [];
@@ -43,18 +43,19 @@ const requestAPI = (req, res) => {
 
             // console.log(Object.keys(x.foodNutrients).length);
             //if (lenOfFood > 0) {
-            console.log(lenOfFood);
+            //console.log(lenOfFood);
 
             //TODO:
             if (lenOfFood > 0) {
-                let len = Object.keys(data.foods[0]).length;
+                let len = Object.keys(data.foods[0].foodNutrients).length;
                 ins = x.description.split(" ")[0];
                 // console.log(ins);
-
+                //  console.log(len);
                 source = x.dataType;
 
                 for (let i = 0; i < len; i++) {
                     let checkVal = x.foodNutrients[i].nutrientName;
+                    //    console.log(checkVal);
                     if (
                         checkVal == "Protein" ||
                         checkVal == "Total lipid (fat)" ||
@@ -92,7 +93,8 @@ const requestAPI = (req, res) => {
                             nutrientValue: gVal,
                             unit: gUnit,
                         });
-                    } else if (
+                    }
+                    if (
                         checkVal == "Calcium, Ca" ||
                         checkVal == "Magnesium, Mg" ||
                         checkVal == "Iron, Fe" ||
@@ -112,7 +114,8 @@ const requestAPI = (req, res) => {
                             nutrientValue: mVal,
                             unit: mUnit,
                         });
-                    } else if (
+                    }
+                    if (
                         checkVal == "Vitamin A, RAE" ||
                         checkVal == "Vitamin B-6" ||
                         checkVal == "Vitamin B-12" ||
@@ -123,40 +126,44 @@ const requestAPI = (req, res) => {
                         checkVal == "Carotene, beta" ||
                         checkVal == "Carotene, alpha"
                     ) {
-                        let mName = x.foodNutrients[i].nutrientName;
-                        let mVal = x.foodNutrients[i].value;
-                        let mUnit = x.foodNutrients[i].unitName;
+                        let vName = x.foodNutrients[i].nutrientName;
+                        let vVal = x.foodNutrients[i].value;
+                        let vUnit = x.foodNutrients[i].unitName;
 
                         vItemCount++;
 
                         vitaminItems.push({
-                            nutrientName: mName,
-                            nutrientValue: mVal,
-                            unit: mUnit,
+                            nutrientName: vName,
+                            nutrientValue: vVal,
+                            unit: vUnit,
                         });
                     }
                 }
                 res.status(200).json({
                     data: {
-                        name: ins == undefined ? "None" : ins,
+                        name: ins,
                         count: {
-                            generalItemsCount: gItemCount == undefined ? 0 : gItemCount,
-                            mineralItemCount: mItemCount == undefined ? 0 : mItemCount,
-                            vitaminItemCount: vItemCount == undefined ? 0 : vItemCount,
+                            generalItemsCount: gItemCount,
+                            mineralItemCount: mItemCount,
+                            vitaminItemCount: vItemCount,
                         },
-                        source: source == undefined ? "None" : source,
-                        generalItems: generalItems == undefined ? "None" : generalItems,
-                        mineralItems: mineralItems == undefined ? "None" : mineralItems,
-                        vitaminItems: vitaminItems == undefined ? "None" : vitaminItems,
+                        source,
+                        generalItems,
+                        mineralItems,
+                        vitaminItems,
                     },
                 });
             } else {
                 res.status(404).json({
-                    data: "Data Not Found!, Enter a valid name!!",
+                    data: "Data Not Found!, Check the name is correct or not!!",
                 });
             }
         })
-        .catch((ex) => console.log(ex));
+        .catch((ex) =>
+            res.status(500).json({
+                data: `${ex} : Internal Server Error`,
+            })
+        );
 };
 
 module.exports = {
