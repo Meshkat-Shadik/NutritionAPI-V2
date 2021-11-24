@@ -156,19 +156,18 @@ const requestAPI = (req, res) => {
             let vName = x.foodNutrients[i].nutrientName;
             let vVal = x.foodNutrients[i].value;
             let vUnit = x.foodNutrients[i].unitName;
-            let hVal2 = 0;
             let temp2 = vVal;
             vItemCount++;
-            let hVal = vVal;
+            let hVal2 = vVal;
             if (vUnit == "MG") {
-              hVal = temp2 * 0.001;
+              hVal2 = temp2 * 0.001;
             }
             if (vUnit == "UG") {
-              hVal = temp2 * 0.000001;
+              hVal2 = temp2 * 0.000001;
             }
             // console.log("--------VITAMINS--------");
             //console.log("V - " + hVal + " " + vUnit);
-            totVNutrition = totVNutrition + hVal;
+            totVNutrition = totVNutrition + hVal2;
 
             vitaminItems.push({
               nutrientName: vName,
@@ -177,6 +176,9 @@ const requestAPI = (req, res) => {
             });
           }
         }
+        generalItems.sort((a, b) => b.nutrientValue - a.nutrientValue);
+        mineralItems.sort((a, b) => b.nutrientValue - a.nutrientValue);
+        vitaminItems.sort((a, b) => b.nutrientValue - a.nutrientValue);
         res.status(200).json({
           status: "Success",
           data: {
