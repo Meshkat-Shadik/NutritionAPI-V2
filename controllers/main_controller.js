@@ -11,9 +11,9 @@ const requestAPI = (req, res) => {
     let qName = req.query.name.toLowerCase();
     if (qName.includes("coconut")) {
         qName = req.query.name.toLowerCase() + "%20water,%20unsweetened";
-    }
-    if (qName.includes("green%20lemon")) {
-        qName = req.query.name.toLowerCase() + "lemon,%20raw";
+    } else if (qName == "green lemon") {
+        // console.log(req.query.name.toLowerCase().trim() == "green lemon");
+        qName = "lemon,%20raw";
     } else {
         qName = req.query.name.toLowerCase() + ",%20raw";
     }
