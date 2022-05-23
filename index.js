@@ -3,9 +3,11 @@ const app = express();
 const dotenv = require("dotenv");
 const mainHandler = require("./routes/main_handler");
 const landingPageHandler = require("./routes/landing_page_handler");
+const cors = require("cors");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 dotenv.config();
 const port = process.env.PORT || 3002;
 
