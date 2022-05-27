@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const mainHandler = require("./routes/main_handler");
+const multipleMainHandler = require("./routes/multiple_main_handler");
 const landingPageHandler = require("./routes/landing_page_handler");
 const cors = require("cors");
 
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3002;
 
 app.use("/", landingPageHandler);
 app.use("/test", mainHandler);
+app.use("/multi", multipleMainHandler);
 app.use(errorHandler);
 //default error handler
 function errorHandler(err, req, res, next) {
