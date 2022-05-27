@@ -55,6 +55,11 @@ const requestAPI = (req, res) => {
             if (lenOfFood > 0) {
                 let len = Object.keys(data.foods[0].foodNutrients).length;
                 ins = x.description.split(" ")[0].replace(",", "");
+
+                if (ins == "SEED") {
+                    ins = "Date";
+                }
+
                 console.log(ins);
                 //  console.log(len);
                 source = x.dataType;
